@@ -5,12 +5,14 @@ function Weather() {
   const [city, setCity] = useState("");
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const getWeather = () => {
     setLoading(true);
+    setError("");
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/forecast?appid=15ca787f2d191cf1f09525804a2ce85d&q=${city}`
+        `https://api.openweathermap.org/data/2.5/forecast?appid=1635890035cbba097fd5c26c8ea672a1&q=${city}`
       )
       .then((response) => {
         const dailyData = response.data.list.filter(
@@ -21,9 +23,12 @@ function Weather() {
       })
       .catch((error) => {
         console.error("Error fetching weather data:", error);
+        setError("Failed to fetch weather data. Please check the city name.");
         setLoading(false);
       });
   };
+
+  const convertKelvinToCelsius = (kelvin) => (kelvin - 273.15).toFixed(2);
 
   return (
     <div className="outer">
@@ -41,51 +46,49 @@ function Weather() {
             {loading && <div className="loader">Loading...</div>}
           </div>
           <div></div>
+          
         </div>
 
         <div className="weather-forecast">
+        {error && <div className="error-message">{error}</div>}
           {forecast.map((day, index) => (
             <div className="box" key={index}>
               <table className="day-forecast">
-                <tr>
-                  <th colSpan={2}>
-                    Date: {new Date(day.dt_txt).toLocaleDateString()}
-                  </th>
-                </tr>
-                <tr className="bg-gray">
-                  <td colSpan={2}>Temperature</td>
-                </tr>
-                <tr className="bg-gray">
-                  <td>Min</td>
-                  <td>Max</td>
-                </tr>
-                <tr>
-                  <td>{day.main.temp_min}°C</td>
-                  <td>{day.main.temp_max}</td>
-                </tr>
-                <tr>
-                  <td>Pressure</td>
-                  <td>{day.main.pressure} hPa</td>
-                </tr>
-                <tr>
-                  <td>Humidity</td>
-                  <td>{day.main.humidity} hPa</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th colSpan={2}>
+                      Date: {new Date(day.dt_txt).toLocaleDateString()}
+                    </th>
+                  </tr>
+                  <tr className="bg-gray">
+                    <td colSpan={2}>Temperature</td>
+                  </tr>
+                  <tr className="bg-gray">
+                    <td>Min</td>
+                    <td>Max</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{convertKelvinToCelsius(day.main.temp_min)}°C</td>
+                    <td>{convertKelvinToCelsius(day.main.temp_max)}°C</td>
+                  </tr>
+                  <tr>
+                    <td>Pressure</td>
+                    <td>{day.main.pressure} hPa</td>
+                  </tr>
+                  <tr>
+                    <td>Humidity</td>
+                    <td>{day.main.humidity}%</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
-            //   <div key={index} className="day-forecast">
-            //     <h3>Date: {new Date(day.dt_txt).toLocaleDateString()}</h3>
-            //     <p>
-            //       Temperature (min-max): {day.main.temp_min}°C - {day.main.temp_max}
-            //       °C
-            //     </p>
-            //     <p>Pressure: {day.main.pressure} hPa</p>
-            //     <p>Humidity: {day.main.humidity}%</p>
-            //   </div>
           ))}
         </div>
       </div>
     </div>
   );
 }
+
 export default Weather;
