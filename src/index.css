@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.outer{
+  background-color: #ebf0f3;
+  min-height: 100vh;
+  padding: 60px 0px;
+}
+.container{
+  width: 80%;
+  margin: 0px auto;
+}
+h1{
+  margin: 0px;
+  padding: 0px;
+  text-wrap: nowrap;
+}
+.search{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+input[type=text]{
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.d-flex{
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+}
+button{
+  background-color: orange;
+  border: none;
+  padding: 10px 35px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.weather-forecast{
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.box{
+  width: 19%;
+ 
+}
+table{
+  border: 1px solid #222;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+table, th, td{
+  border: 1px solid #222;
+}
+th{
+  background-color: orange;
+}
+.bg-gray{
+  background-color: #eee;
+  td{
+    font-weight: bold;
+  }
+}
+@media screen and (max-width: 480px) {
+  .search, .d-flex, .weather-forecast{
+    display: block;
+  }
+  .box{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .search, .d-flex, .weather-forecast{
+    display: block;
+  }
+  .box{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  h1{
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  input[type=text]{
+    margin-bottom: 10px;
+  }
+  
+}
